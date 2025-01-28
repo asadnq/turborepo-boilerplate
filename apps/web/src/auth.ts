@@ -9,7 +9,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import { z } from 'zod';
 import { db } from '@/db';
 
-const authConfig = z
+const config = z
   .object({
     secret: z.string(),
     google: z.object({
@@ -26,13 +26,24 @@ const authConfig = z
   });
 
 export const authOptions: AuthOptions = {
-  providers: [GoogleProvider(authConfig.google)],
+  providers: [GoogleProvider(config.google)],
   adapter: DrizzleAdapter(db),
-  secret: authConfig.secret,
+  secret: config.secret,
+  session: { strategy: 'jwt' },
   callbacks: {
-    signIn() {
-      // TODO: Implement signIn callback
-      return true;
+    jwt({ token, trigger, session, account }) {
+      if (trigger === 'update') token.name = session.user.name;
+      return token;
+    },
+    session(params) {
+      return {
+        ...params.session,
+        user: {
+          ...params.session.user,
+          id: params.token.id as string,
+          randomKey: params.token.randomKey,
+        },
+      };
     },
   },
 };
@@ -43,5 +54,5 @@ export function auth(
     | [NextApiRequest, NextApiResponse]
     | []
 ) {
-  return getServerSession(...args, authConfig);
+  return getServerSession(...args, authOptions);
 }
