@@ -1,3 +1,4 @@
+import { DrizzleAdapter } from '@auth/drizzle-adapter';
 import {
   GetServerSidePropsContext,
   NextApiRequest,
@@ -6,6 +7,7 @@ import {
 import { AuthOptions, getServerSession } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { z } from 'zod';
+import { db } from '@/db';
 
 const authConfig = z
   .object({
@@ -23,8 +25,9 @@ const authConfig = z
     },
   });
 
-export const authOptions = {
+export const authOptions: AuthOptions = {
   providers: [GoogleProvider(authConfig.google)],
+  adapter: DrizzleAdapter(db),
   secret: authConfig.secret,
   callbacks: {
     signIn() {
@@ -32,7 +35,7 @@ export const authOptions = {
       return true;
     },
   },
-} satisfies AuthOptions;
+};
 
 export function auth(
   ...args:

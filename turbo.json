@@ -2,8 +2,12 @@
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
   "globalEnv": [
-    "process.env.GOOGLE_CLIENT_ID",
-    "process.env.GOOGLE_CLIENT_SECRET"
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET",
+    "AUTH_SECRET",
+    "AUTH_GOOGLE_ID",
+    "AUTH_GOOGLE_SECRET",
+    "POSTGRES_URL"
   ],
   "tasks": {
     "build": {
