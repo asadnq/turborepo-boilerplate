@@ -6,6 +6,7 @@ import * as z from 'zod';
 import { useTranslations } from 'next-intl';
 import { Input } from '@repo/ui/components/ui/input';
 import { Button } from '@repo/ui/components/ui/button';
+import { showUnderDevToast } from '@repo/ui/lib/utils/dev';
 import {
   Form,
   FormField,
@@ -38,7 +39,8 @@ export function SignInForm() {
   });
 
   const onSubmit: SubmitHandler<SignInFormValues> = async (data) => {
-    await signIn('credentials', { ...data, redirect: false });
+    // await signIn('credentials', { ...data, redirect: false });
+    showUnderDevToast();
   };
 
   return (
