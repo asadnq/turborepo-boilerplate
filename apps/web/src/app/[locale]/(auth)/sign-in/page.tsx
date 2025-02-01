@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { SignInForm } from './form';
 
-export default function SignIn() {
+export default async function SignIn() {
   return (
     <div className="max-w-[380px] sm:max-w-[450px] mx-auto my-auto flex flex-col justify-center items-center min-h-screen">
       <h1 className="text-3xl text-primary font-bold">Your App Name</h1>
