@@ -1,9 +1,14 @@
-import { NextRequest } from 'next/server';
-import { withAuth } from 'next-auth/middleware';
+import { NextFetchEvent, NextRequest } from 'next/server';
+import { NextRequestWithAuth, withAuth } from 'next-auth/middleware';
 import createMiddleware from 'next-intl/middleware';
 import { routing } from './i18n/routing';
 
-const publicPages = ['/sign-in'];
+const publicPages = [
+  '/sign-in',
+  '/sign-up',
+  '/forget-password',
+  '/email-verification',
+];
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -22,7 +27,7 @@ const authMiddleware = withAuth(
   },
 );
 
-export default function middleware(req: NextRequest) {
+export default function middleware(req: NextRequest, event: NextFetchEvent) {
   const publicPathnameRegex = RegExp(
     `^(/(${routing.locales.join('|')}))?(${publicPages
       .flatMap((p) => (p === '/' ? ['', '/'] : p))
@@ -34,9 +39,13 @@ export default function middleware(req: NextRequest) {
   if (isPublicPage) {
     return intlMiddleware(req);
   } else {
-    return (authMiddleware as any)(req);
+    return authMiddleware(req as NextRequestWithAuth, event);
   }
 }
+
+// export interface NextRequestWithAuth extends NextRequest {
+//   nextauth: { token: JWT | null }
+// }
 
 export const config = {
   // Skip all paths that should not be internationalized

@@ -1,3 +1,19 @@
 {
-	"hello": "Hello"
+  "Form": {
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "continueWithGoogle": "Continue with Google",
+    "resetPassword": "Reset Password"
+  },
+  "SignInPage": {
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign In",
+    "continueWithGoogle": "Continue with Google"
+  },
+  "EmailVerificationPage": {
+    "checkYourEmail": "Check your email for the verification link"
+  }
 }
