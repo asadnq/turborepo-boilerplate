@@ -1,3 +1,19 @@
 {
-	"hello": "Hello"
+  "Form": {
+    "email": "Email",
+    "password": "Kata Sandi",
+    "signIn": "Masuk",
+    "signUp": "Daftar",
+    "continueWithGoogle": "Lanjutkan dengan Google",
+    "resetPassword": "Atur Ulang Kata Sandi"
+  },
+  "SignInPage": {
+    "email": "Email",
+    "password": "Kata Sandi",
+    "signIn": "Masuk",
+    "continueWithGoogle": "Lanjutkan dengan Google"
+  },
+  "EmailVerificationPage": {
+    "checkYourEmail": "Periksa email Anda untuk link verifikasi"
+  }
 }
